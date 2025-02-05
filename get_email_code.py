@@ -13,6 +13,12 @@ class EmailVerificationHandler:
         self.username = Config().get_temp_mail()
         self.epin = Config().get_temp_mail_epin()
         self.session = requests.Session()
+        proxy = os.getenv("BROWSER_PROXY")
+        if proxy:
+            self.session.proxies = {
+                "http": proxy,
+                "https": proxy
+            }
         self.emailExtension = Config().get_temp_mail_ext()
 
     def get_verification_code(self):
